@@ -5,7 +5,7 @@ const features = [
   {
     icon: Clock,
     title: '17 Hours Daily Access',
-    description: 'Play from 6 AM to 11 PM every day with extended hours for your convenience.',
+    description: 'Play morning and night every day with extended hours for your convenience.',
     color: 'text-orange-600 bg-orange-100'
   },
   {

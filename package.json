@@ -3,7 +3,9 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
+  "homepage":"https://github.com/Devanshaga1234/FerroHub-Sports",
   "scripts": {
+    "predeploy": "npm run build",
     "deploy": "vite build && gh-pages -d dist",
     "dev": "vite",
     "build": "vite build",

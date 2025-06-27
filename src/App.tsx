@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import { BookingProvider } from './contexts/BookingContext';
 import { Header } from './components/Layout/Header';
@@ -22,7 +22,7 @@ function App() {
   return (
     <AuthProvider>
       <BookingProvider>
-        {/*<Router>*/}
+        {/*<BrowserRouter basename={import.meta.env.BASE_URL}>*/}
           <div className="min-h-screen flex flex-col">
             <Header />
             <main className="flex-1">
@@ -64,7 +64,7 @@ function App() {
             </main>
             <Footer />
           </div>
-        {/*</Router>*/}
+        {/*</BrowserRouter>*/}
       </BookingProvider>
     </AuthProvider>
   );
