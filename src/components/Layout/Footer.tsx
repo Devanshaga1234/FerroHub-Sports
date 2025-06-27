@@ -22,18 +22,32 @@ export const Footer: React.FC = () => {
               with stunning city views at our two premium locations.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-orange-400 transition-colors">
+              <a
+                href="https://www.instagram.com/ferrohubsports/" // replace with your real Instagram
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-orange-400 transition-colors"
+              >
                 <Instagram className="w-5 h-5" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-orange-400 transition-colors">
+              <a
+                href="https://facebook.com/ferrohub" // replace with your real Facebook
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-orange-400 transition-colors"
+              >
                 <Facebook className="w-5 h-5" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-orange-400 transition-colors">
+              <a
+                href="https://twitter.com/ferrohub" // replace with your real Twitter/X
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-orange-400 transition-colors"
+              >
                 <Twitter className="w-5 h-5" />
               </a>
             </div>
           </div>
-
           {/* Millers Road Location */}
           <div>
             <h3 className="text-lg font-semibold mb-4 text-orange-400">Millers Road</h3>
