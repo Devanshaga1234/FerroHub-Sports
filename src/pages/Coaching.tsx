@@ -3,9 +3,23 @@ import { Clock, Users, Star, CheckCircle, Calendar } from 'lucide-react';
 import { coachingPlans } from '../data/mockData';
 import { useAuth } from '../contexts/AuthContext';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 
 export const Coaching: React.FC = () => {
   const { user } = useAuth();
+
+  const navigate = useNavigate();
+
+  const handleSubscribe = (id: string) => {
+    console.log('Subscribing to plan:', id);
+    navigate(`/subscribe/${id}`);
+  };
+
+  const handleLearnMore = (id: string) => {
+    console.log('Learn more about plan:', id);
+    navigate(`/coaching/${id}`);
+  };
 
   const getPlanColor = (type: string) => {
     switch (type) {
@@ -149,7 +163,9 @@ export const Coaching: React.FC = () => {
                   {/* CTA Button */}
                   <div className="flex space-x-3">
                     {user ? (
-                      <button className={`flex-1 bg-gradient-to-r ${getPlanColor(plan.type)} text-white py-3 px-6 rounded-xl font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200`}>
+                      <button 
+                        onClick={() => handleSubscribe(plan.id)}
+                        className={`flex-1 bg-gradient-to-r ${getPlanColor(plan.type)} text-white py-3 px-6 rounded-xl font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200`}>
                         Subscribe Now
                       </button>
                     ) : (
@@ -160,7 +176,9 @@ export const Coaching: React.FC = () => {
                         Login to Subscribe
                       </Link>
                     )}
-                    <button className="px-6 py-3 border-2 border-gray-200 text-gray-700 rounded-xl font-semibold hover:border-gray-300 transition-colors">
+                    <button 
+                      onClick={() => handleLearnMore(plan.id)}
+                      className="px-6 py-3 border-2 border-gray-200 text-gray-700 rounded-xl font-semibold hover:border-gray-300 transition-colors">
                       Learn More
                     </button>
                   </div>

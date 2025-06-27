@@ -14,12 +14,15 @@ import { Dashboard } from './pages/Dashboard';
 import { AdminDashboard } from './pages/AdminDashboard';
 import { BookingPage } from './pages/BookingPage';
 import { ProtectedRoute } from './components/Auth/ProtectedRoute';
+import { ThankYouPage } from './pages/ThankYouPage';
+import { SubscribePage } from './pages/SubscribePage';
+import { CoachingDetail } from './pages/CoachingDetail';
 
 function App() {
   return (
     <AuthProvider>
       <BookingProvider>
-        <Router>
+        {/*<Router>*/}
           <div className="min-h-screen flex flex-col">
             <Header />
             <main className="flex-1">
@@ -30,6 +33,9 @@ function App() {
                 <Route path="/locations" element={<Locations />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/thank-you" element={<ThankYouPage />} />
+                <Route path="/subscribe/:id" element={<SubscribePage />} />
+                <Route path="/coaching/:id" element={<CoachingDetail />} />
                 <Route 
                   path="/dashboard" 
                   element={
@@ -58,7 +64,7 @@ function App() {
             </main>
             <Footer />
           </div>
-        </Router>
+        {/*</Router>*/}
       </BookingProvider>
     </AuthProvider>
   );

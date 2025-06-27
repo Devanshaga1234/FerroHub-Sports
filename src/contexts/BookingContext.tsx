@@ -64,8 +64,8 @@ export const BookingProvider: React.FC<BookingProviderProps> = ({ children }) =>
 
   const generateTimeSlots = (courtId: string, date: Date): TimeSlot[] => {
     const slots: TimeSlot[] = [];
-    const startHour = 6; // 6 AM
-    const endHour = 23; // 11 PM
+    const startHour = 0; // 12 AM
+    const endHour = 23.5; // 11:30 PM
     
     for (let hour = startHour; hour < endHour; hour++) {
       for (let minute = 0; minute < 60; minute += 30) {

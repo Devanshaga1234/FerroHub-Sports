@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { Calendar, Clock, MapPin, Star, ArrowRight } from 'lucide-react';
-import { format, addDays, startOfDay } from 'date-fns';
+import { Calendar, Clock, MapPin, Star, ArrowRight, CalendarIcon } from 'lucide-react';
+import { format, isBefore } from 'date-fns';
 import { useBooking } from '../contexts/BookingContext';
 import { useAuth } from '../contexts/AuthContext';
 import { Link } from 'react-router-dom';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 export const Courts: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -17,31 +19,19 @@ export const Courts: React.FC = () => {
     { id: 'budigere-cross', name: 'Budigere Cross' }
   ];
 
-  const filteredCourts = selectedLocation === 'all' 
-    ? courts 
+  const filteredCourts = selectedLocation === 'all'
+    ? courts
     : courts.filter(court => court.location === selectedLocation);
 
-  const getNextSevenDays = () => {
-    return Array.from({ length: 7 }, (_, i) => addDays(startOfDay(new Date()), i));
-  };
-
   const formatTimeSlots = (slots: any[]) => {
-    const morningSlots = slots.filter(slot => {
+    const daySlots = slots.filter(slot => {
       const hour = parseInt(slot.startTime.split(':')[0]);
-      return hour >= 6 && hour < 12;
-    });
-    
-    const afternoonSlots = slots.filter(slot => {
-      const hour = parseInt(slot.startTime.split(':')[0]);
-      return hour >= 12 && hour < 18;
-    });
-    
-    const eveningSlots = slots.filter(slot => {
-      const hour = parseInt(slot.startTime.split(':')[0]);
-      return hour >= 18 && hour < 23;
+      const minutes = parseInt(slot.startTime.split(':')[1]);
+      return hour >= 6 && (hour < 17 || (hour === 17 && minutes <= 30));
     });
 
-    return { morningSlots, afternoonSlots, eveningSlots };
+    const nightSlots = slots.filter(slot => !daySlots.includes(slot));
+    return { daySlots, nightSlots };
   };
 
   return (
@@ -58,24 +48,26 @@ export const Courts: React.FC = () => {
         {/* Filters */}
         <div className="bg-white rounded-xl shadow-sm p-6 mb-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Date Selection */}
+            {/* Date Picker */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-3">Select Date</label>
-              <div className="grid grid-cols-7 gap-2">
-                {getNextSevenDays().map((date, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setSelectedDate(date)}
-                    className={`p-3 rounded-lg text-center transition-all ${
-                      format(date, 'yyyy-MM-dd') === format(selectedDate, 'yyyy-MM-dd')
-                        ? 'bg-emerald-600 text-white shadow-lg'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                    }`}
-                  >
-                    <div className="text-xs font-medium">{format(date, 'EEE')}</div>
-                    <div className="text-lg font-bold">{format(date, 'd')}</div>
-                  </button>
-                ))}
+              <label className="block text-sm font-medium text-gray-700 mb-2">Select Date</label>
+              <div className="relative">
+                <DatePicker
+                  selected={selectedDate}
+                  onChange={(date) => date && setSelectedDate(date)}
+                  minDate={new Date()}
+                  dateFormat="MMMM d, yyyy"
+                  className="pl-10 pr-4 py-2 rounded-lg border border-gray-300 shadow-sm w-full text-gray-800 font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  placeholderText="Select a date"
+                />
+                <CalendarIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              </div>
+
+              <div className="mt-3 flex items-center gap-2 bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm rounded-md px-4 py-2 shadow-sm">
+                <Calendar className="w-4 h-4" />
+                <span>
+                  You’ve selected: <span className="font-semibold">{format(selectedDate, 'EEEE, MMMM d, yyyy')}</span>
+                </span>
               </div>
             </div>
 
@@ -105,11 +97,9 @@ export const Courts: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {filteredCourts.map((court) => {
             const availableSlots = getAvailableSlots(court.id, selectedDate);
-            const { morningSlots, afternoonSlots, eveningSlots } = formatTimeSlots(availableSlots);
-
+            const { daySlots, nightSlots } = formatTimeSlots(availableSlots);
             return (
               <div key={court.id} className="bg-white rounded-xl shadow-sm overflow-hidden">
-                {/* Court Header */}
                 <div className="p-6 border-b border-gray-200">
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="text-xl font-semibold text-gray-900">{court.name}</h3>
@@ -118,9 +108,7 @@ export const Courts: React.FC = () => {
                       <span className="text-sm font-medium text-gray-700">4.8</span>
                     </div>
                   </div>
-                  
                   <p className="text-gray-600 mb-4">{court.description}</p>
-                  
                   <div className="flex items-center text-sm text-gray-500 space-x-4">
                     <div className="flex items-center space-x-1">
                       <MapPin className="w-4 h-4" />
@@ -131,26 +119,9 @@ export const Courts: React.FC = () => {
                       <span>₹750 per 30min</span>
                     </div>
                   </div>
-
-                  <div className="flex flex-wrap gap-2 mt-4">
-                    {court.amenities.slice(0, 3).map((amenity, index) => (
-                      <span
-                        key={index}
-                        className="px-2 py-1 bg-emerald-50 text-emerald-700 text-xs font-medium rounded-md"
-                      >
-                        {amenity}
-                      </span>
-                    ))}
-                    {court.amenities.length > 3 && (
-                      <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-md">
-                        +{court.amenities.length - 3} more
-                      </span>
-                    )}
-                  </div>
                 </div>
 
-                {/* Time Slots */}
-                <div className="p-6">
+                <div className="p-6 space-y-6">
                   <div className="flex items-center justify-between mb-4">
                     <h4 className="font-medium text-gray-900">
                       Available Slots - {format(selectedDate, 'MMM d, yyyy')}
@@ -159,71 +130,38 @@ export const Courts: React.FC = () => {
                       {availableSlots.length} slots available
                     </span>
                   </div>
+                  {[
+                    { title: 'Daytime Slots 🌞 (6:00 AM - 5:30 PM)', slots: daySlots },
+                    { title: 'Nighttime Slots 🌙 (6:00 PM - 5:30 AM)', slots: nightSlots }
+                  ]
+                  .filter(({ slots }) => slots.length > 0)
+                  .map(({ title, slots }) => (
+                    <div key={title}>
+                      <h5 className="text-sm font-medium text-gray-700 mb-3">{title}</h5>
+                      <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
+                        {slots.map((slot) => {
+                          const isPast =
+                            format(selectedDate, 'yyyy-MM-dd') === format(new Date(), 'yyyy-MM-dd') &&
+                            isBefore(new Date(`${format(selectedDate, 'yyyy-MM-dd')}T${slot.startTime}`), new Date());
 
-                  {availableSlots.length === 0 ? (
-                    <div className="text-center py-8">
-                      <Clock className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                      <p className="text-gray-500">No slots available for this date</p>
-                      <p className="text-sm text-gray-400 mt-1">Try selecting a different date</p>
+                          return (
+                            <Link
+                              key={slot.id}
+                              to={isPast ? '#' : `/booking/${court.id}/${slot.id}`}
+                              className={`p-2 text-center text-sm font-medium rounded-lg transition-colors ${
+                                isPast
+                                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                                  : 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100'
+                              }`}
+                              onClick={(e) => isPast && e.preventDefault()}
+                            >
+                              {slot.startTime}
+                            </Link>
+                          );
+                        })}
+                      </div>
                     </div>
-                  ) : (
-                    <div className="space-y-6">
-                      {/* Morning Slots */}
-                      {morningSlots.length > 0 && (
-                        <div>
-                          <h5 className="text-sm font-medium text-gray-700 mb-3">Morning (6:00 - 12:00)</h5>
-                          <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
-                            {morningSlots.map((slot) => (
-                              <Link
-                                key={slot.id}
-                                to={user ? `/booking/${court.id}/${slot.id}` : '/login'}
-                                className="p-2 text-center text-sm font-medium rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 transition-colors"
-                              >
-                                {slot.startTime}
-                              </Link>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Afternoon Slots */}
-                      {afternoonSlots.length > 0 && (
-                        <div>
-                          <h5 className="text-sm font-medium text-gray-700 mb-3">Afternoon (12:00 - 18:00)</h5>
-                          <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
-                            {afternoonSlots.map((slot) => (
-                              <Link
-                                key={slot.id}
-                                to={user ? `/booking/${court.id}/${slot.id}` : '/login'}
-                                className="p-2 text-center text-sm font-medium rounded-lg bg-orange-50 text-orange-700 hover:bg-orange-100 transition-colors"
-                              >
-                                {slot.startTime}
-                              </Link>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Evening Slots */}
-                      {eveningSlots.length > 0 && (
-                        <div>
-                          <h5 className="text-sm font-medium text-gray-700 mb-3">Evening (18:00 - 23:00)</h5>
-                          <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
-                            {eveningSlots.map((slot) => (
-                              <Link
-                                key={slot.id}
-                                to={user ? `/booking/${court.id}/${slot.id}` : '/login'}
-                                className="p-2 text-center text-sm font-medium rounded-lg bg-indigo-50 text-indigo-700 hover:bg-indigo-100 transition-colors"
-                              >
-                                {slot.startTime}
-                              </Link>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  )}
-
+                  ))}
                   {!user && (
                     <div className="mt-6 p-4 bg-blue-50 rounded-lg">
                       <div className="flex items-center justify-between">
