@@ -7,7 +7,7 @@ export const coachingPlans: CoachingPlan[] = [
     coach: {
       name: 'Priya Sharma',
       experience: '5+ years coaching experience',
-      image: 'https://images.pexels.com/photos/5012071/pexels-photo-5012071.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: 'https://www.svgrepo.com/show/508699/landscape-placeholder.svg',
       bio: 'Certified pickleball instructor with expertise in teaching beginners. Former state-level badminton player.'
     },
     type: 'beginner',
@@ -34,7 +34,7 @@ export const coachingPlans: CoachingPlan[] = [
     coach: {
       name: 'Rajesh Kumar',
       experience: '8+ years professional coaching',
-      image: 'https://images.pexels.com/photos/6944045/pexels-photo-6944045.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: 'https://www.svgrepo.com/show/508699/landscape-placeholder.svg',
       bio: 'Professional pickleball coach and tournament player. Specializes in strategy and advanced techniques.'
     },
     type: 'intermediate',
@@ -61,7 +61,7 @@ export const coachingPlans: CoachingPlan[] = [
     coach: {
       name: 'Anita Patel',
       experience: '10+ years elite coaching',
-      image: 'https://images.pexels.com/photos/8172943/pexels-photo-8172943.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: 'https://www.svgrepo.com/show/508699/landscape-placeholder.svg',
       bio: 'Former national-level player turned coach. Specializes in personalized training programs and tournament preparation.'
     },
     type: '1-on-1',
@@ -88,7 +88,7 @@ export const coachingPlans: CoachingPlan[] = [
     coach: {
       name: 'Vikram Singh',
       experience: '7+ years tournament coaching',
-      image: 'https://images.pexels.com/photos/8937840/pexels-photo-8937840.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: 'https://www.svgrepo.com/show/508699/landscape-placeholder.svg',
       bio: 'Tournament coach with multiple championship wins. Focuses on competitive play and advanced strategies.'
     },
     type: 'advanced',
@@ -115,19 +115,13 @@ export const locations: Location[] = [
   {
     id: 'millers-road',
     name: 'FerroHub Millers Road',
-    address: '123 Millers Road, Vasanth Nagar, Bengaluru 560052',
+    address: '16/A, Millers Rd, above Advaith Hyundai, Kaverappa Layout, Vasanth Nagar, Bengaluru, Karnataka 560052, India',
     phone: '+91 80 2234 5678',
     email: 'millersroad@ferrohub.com',
-    coordinates: {
-      lat: 12.9716,
-      lng: 77.5946
-    },
+    directions: 'https://www.google.com/maps/place/FerroHub+Sports+Millers+Pickleball/@12.993193,77.5910259,17z/data=!3m1!4b1!4m6!3m5!1s0x3bae171b5b3139e5:0x2764bc37057755a8!8m2!3d12.9931878!4d77.5958968!16s%2Fg%2F11x7ppw11q?entry=ttu&g_ep=EgoyMDI1MDYyMy4yIKXMDSoASAFQAw%3D%3D', // or a shortened maps link
     images: [
-      'https://images.pexels.com/photos/8007203/pexels-photo-8007203.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/6975474/pexels-photo-6975474.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/8937699/pexels-photo-8937699.jpeg?auto=compress&cs=tinysrgb&w=800'
+      'https://www.svgrepo.com/show/508699/landscape-placeholder.svg'
     ],
-    directions: 'Located on Millers Road, near Cantonment Railway Station. Parking available on-site.',
     amenities: [
       '2 Premium Courts',
       'LED Flood Lighting',
@@ -139,26 +133,20 @@ export const locations: Location[] = [
       'Sound System'
     ],
     hours: {
-      open: '06:00',
-      close: '23:00'
+      open: '6:00am',
+      close: '12:00am'
     }
   },
   {
     id: 'budigere-cross',
     name: 'FerroHub Budigere Cross',
-    address: '456 Old Madras Road, Budigere Cross, Bengaluru 560049',
+    address: '112, Budigere Cross, Cheemasandra, Bengaluru, Karnataka 560049, India',
     phone: '+91 80 3345 6789',
     email: 'budigere@ferrohub.com',
-    coordinates: {
-      lat: 13.0827,
-      lng: 77.7064
-    },
+    directions: 'https://www.google.com/maps/place/FerroHub+Sports+Budigere/@13.0580117,77.7417969,18z/data=!4m10!1m2!2m1!1sBudigere+ferrohub+!3m6!1s0x3bae118085f966a7:0xfaa20c035bf58613!8m2!3d13.0580152!4d77.7430526!15sChFCdWRpZ2VyZSBmZXJyb2h1YpIBDnNwb3J0c19jb21wbGV4qgFmCg0vZy8xMWx3ODg1NGM5Cg0vZy8xMXgyY21nN3pqEAEqDCIIZmVycm9odWIoADIfEAEiGzH6nqL7ft32ubs_qtbh999hpfob6oTigNUIwzIVEAIiEWJ1ZGlnZXJlIGZlcnJvaHVi4AEA!16s%2Fg%2F11x2cmg7zj?entry=ttu&g_ep=EgoyMDI1MDYyMy4yIKXMDSoASAFQAw%3D%3D', // sample location
     images: [
-      'https://images.pexels.com/photos/8007359/pexels-photo-8007359.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/8172930/pexels-photo-8172930.jpeg?auto=compress&cs=tinysrgb&w=800',
-      'https://images.pexels.com/photos/6975474/pexels-photo-6975474.jpeg?auto=compress&cs=tinysrgb&w=800'
+      'https://www.svgrepo.com/show/508699/landscape-placeholder.svg'
     ],
-    directions: 'On Old Madras Road, near Budigere Cross. Easy access from Whitefield and surrounding areas.',
     amenities: [
       '2 Standard Courts',
       'LED Lighting',

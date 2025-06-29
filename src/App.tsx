@@ -10,13 +10,16 @@ import { Coaching } from './pages/Coaching';
 import { Locations } from './pages/Locations';
 import { Login } from './pages/Auth/Login';
 import { Register } from './pages/Auth/Register';
-import { Dashboard } from './pages/Dashboard';
-import { AdminDashboard } from './pages/AdminDashboard';
+// import { Dashboard } from './pages/Dashboard';
+// import { AdminDashboard } from './pages/AdminDashboard';
 import { BookingPage } from './pages/BookingPage';
 import { ProtectedRoute } from './components/Auth/ProtectedRoute';
 import { ThankYouPage } from './pages/ThankYouPage';
-import { SubscribePage } from './pages/SubscribePage';
+import { Subscribe } from './pages/Subscribe';
 import { CoachingDetail } from './pages/CoachingDetail';
+import { Community } from './pages/Community';
+import { Membership } from './pages/Membership';
+import ChatBot from './components/ChatBot'; 
 
 function App() {
   return (
@@ -34,9 +37,13 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/thank-you" element={<ThankYouPage />} />
-                <Route path="/subscribe/:id" element={<SubscribePage />} />
+                <Route path="/subscribe/:id" element={<Subscribe />} />
                 <Route path="/coaching/:id" element={<CoachingDetail />} />
-                <Route 
+                <Route path="/community" element={<Community />} />
+                <Route path="/membership" element={<Membership />} />
+                <Route path="/booking" element={<BookingPage />} />
+                <Route path="/chatbot" element={<ChatBot />} />
+                {/* <Route 
                   path="/dashboard" 
                   element={
                     <ProtectedRoute>
@@ -51,7 +58,7 @@ function App() {
                       <AdminDashboard />
                     </ProtectedRoute>
                   } 
-                />
+                /> */}
                 <Route 
                   path="/booking/:courtId/:slotId" 
                   element={

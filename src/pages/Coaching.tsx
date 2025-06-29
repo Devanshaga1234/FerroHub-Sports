@@ -166,14 +166,14 @@ export const Coaching: React.FC = () => {
                       <button 
                         onClick={() => handleSubscribe(plan.id)}
                         className={`flex-1 bg-gradient-to-r ${getPlanColor(plan.type)} text-white py-3 px-6 rounded-xl font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200`}>
-                        Subscribe Now
+                        Start Learning Now
                       </button>
                     ) : (
                       <Link
                         to="/login"
                         className={`flex-1 bg-gradient-to-r ${getPlanColor(plan.type)} text-white py-3 px-6 rounded-xl font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200 text-center`}
                       >
-                        Login to Subscribe
+                        Login to Purchase
                       </Link>
                     )}
                     <button 

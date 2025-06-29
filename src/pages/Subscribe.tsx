@@ -5,7 +5,7 @@ import { CreditCard, Smartphone, Banknote } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
 
-export const SubscribePage: React.FC = () => {
+export const Subscribe: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { user } = useAuth();

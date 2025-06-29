@@ -68,12 +68,8 @@ export interface Location {
   address: string;
   phone: string;
   email: string;
-  coordinates: {
-    lat: number;
-    lng: number;
-  };
-  images: string[];
   directions: string;
+  images: string[];
   amenities: string[];
   hours: {
     open: string;

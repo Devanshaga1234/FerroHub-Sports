@@ -1,5 +1,15 @@
 import React from 'react';
-import { MapPin, Phone, Mail, Clock, Car, Wifi, PowerIcon as ShowerIcon, Star } from 'lucide-react';
+import {
+  MapPin,
+  Phone,
+  Mail,
+  Clock,
+  Car,
+  Wifi,
+  PowerIcon as ShowerIcon,
+  Star,
+} from 'lucide-react';
+import { motion } from 'framer-motion';
 import { locations } from '../data/mockData';
 
 export const Locations: React.FC = () => {
@@ -19,160 +29,123 @@ export const Locations: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-white via-gray-100 to-white py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Our Locations</h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Visit our premium pickleball facilities conveniently located across Bengaluru. 
-            Each location offers unique features and stunning views.
+        <motion.div
+          className="text-center mb-20"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h1 className="text-5xl font-extrabold text-gray-900 mb-4">Our Locations</h1>
+          <motion.h1
+            className="w-17 h-1 bg-gradient-to-r from-orange-500 to-blue-500 mx-auto mb-6 rounded-full"
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ delay: 0.1, duration: 0.8 }}
+            style={{ transformOrigin: 'left' }}
+          />
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            Explore premium rooftop and indoor courts across Bengaluru, built for every kind of player.
           </p>
-        </div>
+        </motion.div>
 
-        {/* Locations */}
-        <div className="space-y-12">
+        {/* Location Cards */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {locations.map((location, index) => (
-            <div key={location.id} className="bg-white rounded-2xl shadow-lg overflow-hidden">
-              <div className={`grid grid-cols-1 lg:grid-cols-2 ${index % 2 === 1 ? 'lg:grid-flow-dense' : ''}`}>
-                {/* Images */}
-                <div className={`${index % 2 === 1 ? 'lg:col-start-2' : ''}`}>
-                  <div className="h-64 lg:h-full">
-                    <img
-                      src={location.images[0]}
-                      alt={location.name}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className={`p-8 lg:p-12 ${index % 2 === 1 ? 'lg:col-start-1' : ''}`}>
-                  <div className="mb-6">
-                    <h2 className="text-3xl font-bold text-gray-900 mb-2">{location.name}</h2>
-                    <div className="flex items-center space-x-1 text-yellow-500 mb-4">
-                      <Star className="w-5 h-5 fill-current" />
-                      <Star className="w-5 h-5 fill-current" />
-                      <Star className="w-5 h-5 fill-current" />
-                      <Star className="w-5 h-5 fill-current" />
-                      <Star className="w-5 h-5 fill-current" />
-                      <span className="text-gray-600 ml-2">4.8 (124 reviews)</span>
-                    </div>
-                  </div>
-
-                  {/* Contact Info */}
-                  <div className="space-y-4 mb-8">
-                    <div className="flex items-start space-x-3">
-                      <MapPin className="w-5 h-5 text-emerald-600 mt-1 flex-shrink-0" />
-                      <div>
-                        <p className="font-medium text-gray-900">Address</p>
-                        <p className="text-gray-600">{location.address}</p>
-                        <p className="text-sm text-emerald-600 mt-1">{location.directions}</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center space-x-3">
-                      <Phone className="w-5 h-5 text-emerald-600 flex-shrink-0" />
-                      <div>
-                        <p className="font-medium text-gray-900">Phone</p>
-                        <p className="text-gray-600">{location.phone}</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center space-x-3">
-                      <Mail className="w-5 h-5 text-emerald-600 flex-shrink-0" />
-                      <div>
-                        <p className="font-medium text-gray-900">Email</p>
-                        <p className="text-gray-600">{location.email}</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center space-x-3">
-                      <Clock className="w-5 h-5 text-emerald-600 flex-shrink-0" />
-                      <div>
-                        <p className="font-medium text-gray-900">Hours</p>
-                        <p className="text-gray-600">
-                          {location.hours.open} - {location.hours.close} (7 days a week)
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Amenities */}
-                  <div className="mb-8">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Amenities</h3>
-                    <div className="grid grid-cols-2 gap-3">
-                      {location.amenities.map((amenity, amenityIndex) => {
-                        const IconComponent = getAmenityIcon(amenity);
-                        return (
-                          <div key={amenityIndex} className="flex items-center space-x-2">
-                            <IconComponent className="w-4 h-4 text-emerald-600" />
-                            <span className="text-sm text-gray-600">{amenity}</span>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-
-                  {/* Action Buttons */}
-                  <div className="flex flex-col sm:flex-row gap-4">
-                    <a
-                      href="/courts"
-                      className="flex-1 bg-emerald-600 text-white py-3 px-6 rounded-xl font-semibold text-center hover:bg-emerald-700 transition-colors"
-                    >
-                      Book a Court
-                    </a>
-                    <a
-                      href={`https://maps.google.com?q=${location.coordinates.lat},${location.coordinates.lng}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1 border-2 border-emerald-600 text-emerald-600 py-3 px-6 rounded-xl font-semibold text-center hover:bg-emerald-50 transition-colors"
-                    >
-                      Get Directions
-                    </a>
-                  </div>
-                </div>
+            <motion.div
+              key={location.id}
+              className="relative group rounded-3xl overflow-hidden bg-white shadow-xl transition-all"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1, duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <div className="h-64 overflow-hidden">
+                <img
+                  src={location.images[0]}
+                  alt={location.name}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
               </div>
 
-              {/* Additional Images */}
-              {location.images.length > 1 && (
-                <div className="grid grid-cols-2 lg:grid-cols-3 gap-1">
-                  {location.images.slice(1).map((image, imageIndex) => (
-                    <div key={imageIndex} className="aspect-w-16 aspect-h-12">
-                      <img
-                        src={image}
-                        alt={`${location.name} - View ${imageIndex + 2}`}
-                        className="w-full h-32 object-cover"
-                      />
-                    </div>
+              <div className="p-8 lg:p-10">
+                <h2 className="text-3xl font-bold text-gray-900 mb-3">{location.name}</h2>
+                <div className="flex items-center text-yellow-500 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-5 h-5 fill-current" />
                   ))}
+                  <span className="text-gray-500 ml-2 text-sm">4.8 • 124 reviews</span>
                 </div>
-              )}
-            </div>
-          ))}
-        </div>
 
-        {/* Call to Action */}
-        <div className="mt-16 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-2xl p-8 lg:p-12 text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">Ready to Play?</h2>
-          <p className="text-emerald-100 text-lg mb-8 max-w-2xl mx-auto">
-            Choose your preferred location and book your court today. Both locations offer the same 
-            premium experience with unique local character.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="/courts"
-              className="bg-white text-emerald-600 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-50 transform hover:scale-105 transition-all duration-200"
-            >
-              Book Your Court
-            </a>
-            <a
-              href="/coaching"
-              className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white hover:text-emerald-600 transform hover:scale-105 transition-all duration-200"
-            >
-              View Coaching Plans
-            </a>
-          </div>
+                {/* Contact */}
+                <div className="space-y-4 mb-6 text-sm sm:text-base text-gray-600">
+                  <div className="flex items-start gap-3">
+                    <MapPin className="w-5 h-5 text-emerald-600 mt-1" />
+                    <div>
+                      <p className="font-medium text-gray-900">Address</p>
+                      <p>{location.address}</p>
+                      {/* <a
+                        href={location.directions}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm text-emerald-600 underline hover:text-emerald-800 mt-1 inline-block"
+                      >
+                        View on Maps
+                      </a> */}
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Phone className="w-5 h-5 text-emerald-600" />
+                    <p>{location.phone}</p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Mail className="w-5 h-5 text-emerald-600" />
+                    <p>{location.email}</p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Clock className="w-5 h-5 text-emerald-600" />
+                    <p>{location.hours.open} – {location.hours.close} (7 days)</p>
+                  </div>
+                </div>
+
+                {/* Amenities */}
+                <div className="mb-8">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Amenities</h3>
+                  <div className="grid grid-cols-2 gap-3">
+                    {location.amenities.map((amenity, idx) => {
+                      const Icon = getAmenityIcon(amenity);
+                      return (
+                        <div key={idx} className="flex items-center gap-2 text-sm text-gray-700">
+                          <Icon className="w-4 h-4 text-emerald-600" />
+                          {amenity}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Actions */}
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <a
+                    href="/courts"
+                    className="flex-1 bg-emerald-600 text-white py-3 px-6 rounded-xl text-center font-semibold hover:bg-emerald-700 transition"
+                  >
+                    Book a Court
+                  </a>
+                  <a
+                    href={location.directions}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 border border-emerald-600 text-emerald-600 py-3 px-6 rounded-xl text-center font-semibold hover:bg-emerald-50 transition"
+                  >
+                    Get Directions
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </div>
