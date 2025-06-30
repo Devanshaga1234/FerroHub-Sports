@@ -1,23 +1,27 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, User, LogOut, Calendar, MapPin } from 'lucide-react';
-// import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 
 export const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  // const { user, logout } = useAuth();
+  const { user, logout } = useAuth();
   const location = useLocation();
 
-  const navigation = [
-    { name: 'Home', href: '/' },
-    { name: 'MyCourt', href: '/mycourt' },
-    { name: 'Courts', href: '/courts' },
-    { name: 'Coaching', href: '/coaching' },
-    { name: 'Locations', href: '/locations' },
-    { name: 'Community', href: '/community' },
-    { name: 'Membership', href: '/membership' },
-  
-  ];
+const baseNav = [
+  { name: 'Home', href: '/', requiresLogin: false },
+  { name: 'MyCourt', href: '/mycourt', requiresLogin: false },
+  { name: 'Courts', href: '/courts', requiresLogin: false, },
+  { name: 'Coaching', href: '/coaching', requiresLogin: false },
+  { name: 'Locations', href: '/locations', requiresLogin: false },
+  { name: 'Community', href: '/community', requiresLogin: false },
+  { name: 'Membership', href: '/membership', requiresLogin: false, },
+];
+
+const navigation = baseNav.filter(item => {
+  if (item.requiresLogin && !user) return false;
+  return true;
+});
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -54,16 +58,18 @@ export const Header: React.FC = () => {
           </nav>
 
           {/* User Menu */}
-          {/* <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden md:flex items-center space-x-4">
             {user ? (
               <div className="flex items-center space-x-4">
-                <Link
-                  to="/dashboard"
-                  className="flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-orange-600 hover:bg-gray-50 transition-colors"
-                >
-                  <Calendar className="w-4 h-4" />
-                  <span>My Bookings</span>
-                </Link>
+                {!user?.isAdmin && (
+                  <Link
+                    to="/dashboard"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-orange-600 hover:bg-gray-50"
+                  >
+                    My Bookings
+                  </Link>
+                )}
                 {user.isAdmin && (
                   <Link
                     to="/admin"
@@ -100,7 +106,7 @@ export const Header: React.FC = () => {
                 </Link>
               </div>
             )}
-          </div> */}
+          </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden">
@@ -132,7 +138,7 @@ export const Header: React.FC = () => {
                 </Link>
               ))}
               
-              {/* {user ? (
+              {user ? (
                 <div className="pt-4 pb-3 border-t border-gray-200">
                   <div className="flex items-center px-3 py-2">
                     <User className="w-5 h-5 text-gray-400 mr-3" />
@@ -181,7 +187,7 @@ export const Header: React.FC = () => {
                     Sign Up
                   </Link>
                 </div>
-              )} */}
+              )}
             </div>
           </div>
         )}

@@ -10,8 +10,8 @@ import { Coaching } from './pages/Coaching';
 import { Locations } from './pages/Locations';
 import { Login } from './pages/Auth/Login';
 import { Register } from './pages/Auth/Register';
-// import { Dashboard } from './pages/Dashboard';
-// import { AdminDashboard } from './pages/AdminDashboard';
+import { Dashboard } from './pages/Dashboard';
+import { AdminDashboard } from './pages/AdminDashboard';
 import { BookingPage } from './pages/BookingPage';
 import { ProtectedRoute } from './components/Auth/ProtectedRoute';
 import { ThankYouPage } from './pages/ThankYouPage';
@@ -45,7 +45,7 @@ function App() {
                 <Route path="/booking" element={<BookingPage />} />
                 <Route path="/chatbot" element={<ChatBot />} />
                 <Route path="/mycourt" element={<MyCourt />} />
-                {/* <Route 
+                <Route 
                   path="/dashboard" 
                   element={
                     <ProtectedRoute>
@@ -60,7 +60,7 @@ function App() {
                       <AdminDashboard />
                     </ProtectedRoute>
                   } 
-                /> */}
+                />
                 <Route 
                   path="/booking/:courtId/:slotId" 
                   element={
