@@ -10,11 +10,13 @@ export const Header: React.FC = () => {
 
   const navigation = [
     { name: 'Home', href: '/' },
+    { name: 'MyCourt', href: '/mycourt' },
     { name: 'Courts', href: '/courts' },
     { name: 'Coaching', href: '/coaching' },
     { name: 'Locations', href: '/locations' },
     { name: 'Community', href: '/community' },
     { name: 'Membership', href: '/membership' },
+  
   ];
 
   const isActive = (path: string) => location.pathname === path;

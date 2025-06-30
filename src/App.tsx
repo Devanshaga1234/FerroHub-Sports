@@ -20,6 +20,7 @@ import { CoachingDetail } from './pages/CoachingDetail';
 import { Community } from './pages/Community';
 import { Membership } from './pages/Membership';
 import ChatBot from './components/ChatBot'; 
+import { MyCourt} from './pages/MyCourt'; 
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
                 <Route path="/membership" element={<Membership />} />
                 <Route path="/booking" element={<BookingPage />} />
                 <Route path="/chatbot" element={<ChatBot />} />
+                <Route path="/mycourt" element={<MyCourt />} />
                 {/* <Route 
                   path="/dashboard" 
                   element={
